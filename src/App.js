@@ -1,45 +1,75 @@
-import React, { Component } from 'react';
+import React, { useState } from "react";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-6 col-sm-offset-3">
-            <form>
-              <div className="form-group">
-                <label htmlFor="first-name">Nombre</label>
-                <input type="text" className="form-control" name="first-name" />
-              </div>
+const App = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [invitados, setInvitados] = useState([]);
 
-              <div className="form-group">
-                <label htmlFor="last-name">Apellido</label>
-                <input type="text" className="form-control" name="last-name" />
-              </div>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const invitadoNuevo = {
+      name: firstName,
+      lastname: lastName,
+    };
+    setInvitados([...invitados, invitadoNuevo]);
+    setFirstName((e.target.value = ""));
+    setLastName((e.target.value = ""));
+  };
 
-              <div className="action">
-                <button type="submit" className="btn btn-primary">Agregar Invitado</button>
-              </div>
-            </form>
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-sm-6 col-sm-offset-3">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="first-name">Nombre</label>
+              <input
+                type="text"
+                className="form-control"
+                name="first-name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
 
-            <table className="table bordered-table table-striped">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Apellido</th>
+            <div className="form-group">
+              <label htmlFor="last-name">Apellido</label>
+              <input
+                type="text"
+                className="form-control"
+                name="last-name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+
+            <div className="action">
+              <button type="submit" className="btn btn-primary">
+                Agregar Invitado
+              </button>
+            </div>
+          </form>
+
+          <table className="table bordered-table table-striped">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+              </tr>
+            </thead>
+            <tbody>
+              {invitados.map((invitado, index) => (
+                <tr key={Math.random(index)}>
+                  <td key={index}>{invitado.name}</td>
+                  <td key={Math.random(index)}>{invitado.lastname}</td>
                 </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-    )
-  }
-}
+    </div>
+  );
+};
 
-export default App
-
-
+export default App;
