@@ -59,9 +59,9 @@ const App = () => {
             </thead>
             <tbody>
               {invitados.map((invitado, index) => (
-                <tr key={Math.random(index)}>
-                  <td key={index}>{invitado.name}</td>
-                  <td key={Math.random(index)}>{invitado.lastname}</td>
+                <tr key={index}>
+                  <td>{invitado.name}</td>
+                  <td>{invitado.lastname}</td>
                 </tr>
               ))}
             </tbody>
